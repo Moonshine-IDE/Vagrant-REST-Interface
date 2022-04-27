@@ -1,0 +1,9 @@
+.jruby-container
+.idea
+.vagrant/
+*.log
+.DS_Store
+.classpath
+.settings
+.project
+.gradle/
