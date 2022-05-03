@@ -3,9 +3,11 @@
 
 # The ports on the host that you want to use to access the port on the guest.
 # This must be greater than port 1024.
-HTTP_SERVER_PORT=8080
+HTTP_HOST_PORT=8095
+HTTP_GUEST_PORT=8080
 
 APP_HOME_DIR="/opt/rest-interface"
+ARTIFACT_NAME="rest-interface-0.1.jar"
 Vagrant.configure(2) do |config|
 
   config.vm.box = "centos/7"
@@ -25,16 +27,31 @@ Vagrant.configure(2) do |config|
 
   config.vm.provider "virtualbox" do |vb|
      vb.name = "rest-interface"
-     vb.memory = "1024"
+     vb.memory = "10224"
+     vb.gui = false
    end
 
-  config.vm.network "forwarded_port", guest: 8080, host: HTTP_SERVER_PORT, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port",
+    guest: HTTP_GUEST_PORT,
+    host: HTTP_HOST_PORT,
+    host_ip: "127.0.0.1"
 
-  config.vm.synced_folder "./rest-interface", APP_HOME_DIR, create: true
+  config.vm.synced_folder "./rest-interface/bin", APP_HOME_DIR + "/bin", create: true
 
-  config.vm.provision "shell", path: "provision.sh", privileged: false
+  config.vm.provision "shell",
+    path: "provision.sh",
+    privileged: false
 
-  config.vm.provision "shell", path: "always.sh", privileged: false, run: "always"
+  config.vm.provision "shell",
+    path: "always.sh",
+    privileged: false,
+    run: "always",
+    args: [
+      HTTP_GUEST_PORT,
+      ARTIFACT_NAME,
+      APP_HOME_DIR,
+      HTTP_HOST_PORT
+    ]
 
 end
 
