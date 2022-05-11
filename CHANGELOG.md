@@ -1,0 +1,1 @@
+* Use Github release to publish vagrant files
