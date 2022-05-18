@@ -14,14 +14,14 @@ jobs:
         uses: dsaltares/fetch-gh-release-asset@master
         with:
           repo: 'Moonshine-IDE/REST-Interface'
-          version: "tags/${{ env.release_version }}"
-          file: "rest-interface-${{ env.release_version }}.jar"
-          target: "centos7/rest-interface-${{ env.release_version }}.jar"
+          version: "tags/${{ env.interface_version }}"
+          file: "rest-interface-${{ env.interface_version }}.jar"
+          target: "src/centos7/rest-interface-${{ env.interface_version }}.jar"
           token: ${{ secrets.GH_TOKEN }}
       - name: Create zip
         uses: montudor/action-zip@v1
         with:
-          args: zip -r centos7.zip centos7
+          args: zip -j VagrantCRUD_centos7.zip src/centos7/rest-interface-${{ env.interface_version }}.jar src/centos7/always.sh src/centos7/provision.sh
       - name: Release
         uses: actions/create-release@v1
         id: create_release
@@ -39,6 +39,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: centos7.zip
-          asset_name: centos7.zip
+          asset_path: VagrantCRUD_centos7.zip
+          asset_name: VagrantCRUD_centos7.zip
           asset_content_type: application/zip
