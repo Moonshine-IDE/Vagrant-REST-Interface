@@ -13,8 +13,8 @@ Here are the requirements for this demo:
 - [Vagrant](https://www.vagrantup.com/downloads)
 
 Update your Vagrantfile as follows
-1. Set the `HTTP_HOST_PORT` variable with the port you want to use (occupie) in your Host machine to access the rest-interface.
-2. Set the `HTTP_GUEST_PORT` variable with the port that the rest-interface will use (occupie) in the virtual machine.
+1. Set the `HTTP_HOST_PORT` variable with the port you want to use (reserve) in your Host machine to access the rest-interface.
+2. Set the `HTTP_GUEST_PORT` variable with the port that the rest-interface will use (reserve) in the virtual machine.
 3. Add the variable `APP_HOME_DIR`, this will indicate the directory where the rest-interface files (binaries and logs) will live within the VM.
 
 At the end, your Vagrantfile (Centos 7) should look like this
@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
     # These libraries could be moved or removed by the user if they were already covered
     yum install -y wget
     yum install -y unzip
-    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.1/VagrantCRUD_centos7.zip
+    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.2/VagrantCRUD_centos7.zip
 
     unzip -d rest VagrantCRUD_centos7.zip
     mv rest/rest-interface-*.jar rest/rest-interface.jar
@@ -44,14 +44,14 @@ Vagrant.configure(2) do |config|
   SHELL
 
   config.vm.provision "shell",
-    inline: "/bin/sh /home/vagrant/rest/provision.sh $1 $2",
+    inline: "/bin/sh /home/vagrant/rest/provision.sh $1",
     privileged: true,
     args: [
       APP_HOME_DIR
     ]
 
   config.vm.provision "shell",
-    inline: "/bin/sh /home/vagrant/rest/always.sh $1 $2 $3 $4",
+    inline: "/bin/sh /home/vagrant/rest/always.sh $1 $2 $3",
     privileged: false,
     run: "always",
     args: [
@@ -61,4 +61,4 @@ Vagrant.configure(2) do |config|
     ]
 
 ```
-Take a look at the [demos](https://github.com/Moonshine-IDE/Vagrant-REST-Interface/tree/master/demo) for more information.
+Take a look at the [demos](https://github.com/Moonshine-IDE/Vagrant-REST-Interface/tree/master/demo) for more examples.
