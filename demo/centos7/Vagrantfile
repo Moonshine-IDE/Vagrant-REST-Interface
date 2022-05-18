@@ -7,7 +7,6 @@ HTTP_HOST_PORT=8095
 HTTP_GUEST_PORT=8080
 
 APP_HOME_DIR="/opt/rest-interface"
-ARTIFACT_NAME="rest-interface-0.1.0.jar"
 Vagrant.configure(2) do |config|
 
   config.vm.box = "centos/7"
@@ -20,7 +19,7 @@ Vagrant.configure(2) do |config|
 
   # This prevents vagrant checking kernel and guest-additions for subsequent
   # vagrant up command executions, reducing the vm startup time
-  if not isProvisioned(config.vm.box) then
+  if not isProvisioned() then
     if Vagrant.has_plugin?("vagrant-vbguest") then
       config.vbguest.installer_options = { allow_kernel_upgrade: true }
       config.vbguest.auto_update = true
@@ -40,27 +39,26 @@ Vagrant.configure(2) do |config|
     # These libraries could be moved or removed by the user if they were already covered
     yum install -y wget
     yum install -y unzip
-    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.1/VagrantCRUD_centos7.zip
+    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.2/VagrantCRUD_centos7.zip
 
     unzip -d rest VagrantCRUD_centos7.zip
+    mv rest/rest-interface-*.jar rest/rest-interface.jar
     chmod +x -R rest/
   SHELL
 
   config.vm.provision "shell",
-    inline: "/bin/sh /home/vagrant/rest/provision.sh $1 $2",
+    inline: "/bin/sh /home/vagrant/rest/provision.sh $1",
     privileged: true,
     args: [
-      ARTIFACT_NAME,
       APP_HOME_DIR
     ]
 
   config.vm.provision "shell",
-    inline: "/bin/sh /home/vagrant/rest/always.sh $1 $2 $3 $4",
+    inline: "/bin/sh /home/vagrant/rest/always.sh $1 $2 $3",
     privileged: false,
     run: "always",
     args: [
       HTTP_GUEST_PORT,
-      ARTIFACT_NAME,
       APP_HOME_DIR,
       HTTP_HOST_PORT
     ]

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 HTTP_GUEST_PORT=$1
-ARTIFACT_NAME=$2
-APP_HOME_DIR=$3
-HTTP_HOST_PORT=$4
+ARTIFACT_NAME="rest-interface.jar"
+APP_HOME_DIR=$2
+HTTP_HOST_PORT=$3
 
 check=$(netstat -an | grep $HTTP_GUEST_PORT | wc -l)
 if [[ $check -ne 0 ]];then

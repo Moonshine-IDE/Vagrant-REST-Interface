@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ARTIFACT_NAME=$1
-APP_HOME_DIR=$2
+ARTIFACT_NAME="rest-interface.jar"
+APP_HOME_DIR=$1
 
 yum clean all
 yum update
@@ -15,7 +15,7 @@ printf "\n\nJava has been installed"
 
 mkdir -p $APP_HOME_DIR/bin
 mkdir -p $APP_HOME_DIR/log
-touch /opt/rest-interface/log/output.log
+touch $APP_HOME_DIR/log/output.log
 mv /home/vagrant/rest/$ARTIFACT_NAME $APP_HOME_DIR/bin/
 
 chown -R vagrant:vagrant $APP_HOME_DIR
