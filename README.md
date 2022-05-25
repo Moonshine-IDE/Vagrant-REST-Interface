@@ -61,4 +61,20 @@ Vagrant.configure(2) do |config|
     ]
 
 ```
-Take a look at the [demos](https://github.com/Moonshine-IDE/Vagrant-REST-Interface/tree/master/demo) for more examples.
+## Running the demos
+We have Vagrantfiles for Centos 7 and Ubuntu, you can use these files to launch a Virtual Machine containing the rest-interface application listening by default in the port 8095.
+
+### Centos 7 demo VM
+To start a Centos 7 Virtual Machine using Vagrant + Virtual Box:
+1. Open a command line and change directory to the `demo/centos7` directory within this project.
+2. execute `vagrant up` command to launch a virtual machine. By default, this Virtual machine will use the port 8095 in your computer, if that port is not available you can use a different one by changing the value of `HTTP_HOST_PORT` in the Vagrantfile.
+3. Wait for the VM to be ready, the fist time you launch the VM it will take some time, between 5-10 minutes, subsequent usages (vagrant up) of the Virtual Machine should be considerably faster (about 1 minute or less).
+4. When the VM is ready you will see the message: `rest-interface is starting at 127.0.0.1:8095, it takes about 20 seconds to become ready, please wait...`
+5. You can then open [127.0.0.1:8095](http://127.0.0.1:8095) in your web browser and see the documentation page, where you can see the avaiable endpoints and some examples of how to use them.
+6. To stop the Virtual Machine, from a command line in the demo/centos7 directory, execute: `vagrant halt`.
+
+### Ubuntu demo VM
+To start a Ubuntu Virtual Machine using Vagrant + Virtual Box:
+1. Open a command line and change directory to the `demo/ubuntu` directory within this project.
+2. Please continue from step 2 of the Centos 7 demo VM, the process is the same from there.
+
