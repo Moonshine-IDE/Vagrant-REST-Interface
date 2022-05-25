@@ -3,14 +3,12 @@
 ## Summary
 This project uses Github Actions to package the rest-interface.jar artifact and bash scripts (to provision a virtual machine) into a ZIP file. After each release, new ZIP files (one per supported operating system) are created and made available through Github release assets. Users interested in running a rest-interface instance in Vagrant,
 can use this ZIP to easily deploy the rest-interface application into their Virtual Machine.
+## Requirements
 
-## Using the generated ZIP file within your Vagrant VM
-
-### Requirements
-
-Here are the requirements for this demo:
 - [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 - [Vagrant](https://www.vagrantup.com/downloads)
+
+## Using the generated ZIP file within your _existing_ Vagrant VM
 
 Update your Vagrantfile as follows
 1. Set the `HTTP_HOST_PORT` variable with the port you want to use (reserve) in your Host machine to access the rest-interface.
