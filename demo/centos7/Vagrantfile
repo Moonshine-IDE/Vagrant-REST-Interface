@@ -12,10 +12,10 @@ Vagrant.configure(2) do |config|
   config.vm.box = "centos/7"
 
   config.vm.provider "virtualbox" do |vb|
-     vb.name = "demo-centos7-rest-interface"
-     vb.memory = "10224"
-     vb.gui = false
-   end
+    vb.name = "demo-centos7-rest-interface"
+    vb.memory = "1024"
+    vb.gui = false
+  end
 
   # This prevents vagrant checking kernel and guest-additions for subsequent
   # vagrant up command executions, reducing the vm startup time

@@ -16,12 +16,16 @@ jobs:
           repo: 'Moonshine-IDE/REST-Interface'
           version: "tags/${{ env.interface_version }}"
           file: "rest-interface-${{ env.interface_version }}.jar"
-          target: "src/centos7/rest-interface-${{ env.interface_version }}.jar"
+          target: "src/rest-interface-${{ env.interface_version }}.jar"
           token: ${{ secrets.GH_TOKEN }}
-      - name: Create zip
+      - name: Create Centos 7 zip
         uses: montudor/action-zip@v1
         with:
-          args: zip -j VagrantCRUD_centos7.zip src/centos7/rest-interface-${{ env.interface_version }}.jar src/centos7/always.sh src/centos7/provision.sh
+          args: zip -j VagrantCRUD_centos7.zip src/rest-interface-${{ env.interface_version }}.jar src/centos7/always.sh src/centos7/provision.sh
+      - name: Create Ubuntu zip
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -j VagrantCRUD_ubuntu.zip src/rest-interface-${{ env.interface_version }}.jar src/ubuntu/always.sh src/ubuntu/provision.sh
       - name: Release
         uses: actions/create-release@v1
         id: create_release
@@ -33,7 +37,7 @@ jobs:
           body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      - name: Upload artifact
+      - name: Upload artifact for Centos 7
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -41,4 +45,13 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: VagrantCRUD_centos7.zip
           asset_name: VagrantCRUD_centos7.zip
+          asset_content_type: application/zip
+      - name: Upload artifact for Ubuntu
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: VagrantCRUD_ubuntu.zip
+          asset_name: VagrantCRUD_ubuntu.zip
           asset_content_type: application/zip
