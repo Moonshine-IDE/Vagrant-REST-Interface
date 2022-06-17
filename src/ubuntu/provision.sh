@@ -3,18 +3,26 @@
 ARTIFACT_NAME="rest-interface.jar"
 APP_HOME_DIR=$1
 
-apt-get update
+sudo apt install -y -q net-tools
 
-printf "\n\nInstalling Java...\n"
-sudo add-apt-repository ppa:openjdk-r/ppa -y >/dev/null 2>&1
-sudo apt-get update >/dev/null 2>&1
-apt-get install -y openjdk-8-jdk >/dev/null 2>&1;
+which java > /dev/null 2>&1;
+COMMAND_RESULT=$?
 
-printf "\n\nJava has been installed"
+if [ -n "$JAVA_HOME" ] || [ $COMMAND_RESULT -eq 0 ];then
+   printf "\n\nJava already installed\n"
+else
+   printf "\n\nInstalling Java...\n"
+   sudo add-apt-repository ppa:openjdk-r/ppa -y >/dev/null 2>&1
+   sudo apt-get update >/dev/null 2>&1
+   sudo apt-get install -y openjdk-8-jdk >/dev/null 2>&1;
+   
+   printf "\nJava has been installed"
+fi
 
-mkdir -p $APP_HOME_DIR/bin
-mkdir -p $APP_HOME_DIR/log
-touch $APP_HOME_DIR/log/output.log
-mv /home/vagrant/rest/$ARTIFACT_NAME $APP_HOME_DIR/bin/
+sudo mkdir -p $APP_HOME_DIR/bin
+sudo mkdir -p $APP_HOME_DIR/log
+sudo touch $APP_HOME_DIR/log/output.log
 
-chown -R vagrant:vagrant $APP_HOME_DIR
+sudo mv /home/vagrant/rest/$ARTIFACT_NAME $APP_HOME_DIR/bin/
+
+sudo chown -R vagrant:vagrant $APP_HOME_DIR

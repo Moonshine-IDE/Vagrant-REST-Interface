@@ -25,7 +25,7 @@ Vagrant.configure(2) do |config|
     # These libraries could be moved or removed by the user if they were already covered
     apt-get install -y wget
     apt-get install -y unzip
-    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.2/VagrantCRUD_ubuntu.zip
+    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.3/VagrantCRUD_ubuntu.zip
 
     unzip -d rest VagrantCRUD_ubuntu.zip
     mv rest/rest-interface-*.jar rest/rest-interface.jar
@@ -33,14 +33,14 @@ Vagrant.configure(2) do |config|
   SHELL
 
   config.vm.provision "shell",
-    inline: "/bin/bash /home/vagrant/rest/provision.sh $1",
-    privileged: true,
+    inline: "/bin/bash -i /home/vagrant/rest/provision.sh $1",
+    privileged: false,
     args: [
       APP_HOME_DIR
     ]
 
   config.vm.provision "shell",
-    inline: "/bin/bash /home/vagrant/rest/always.sh $1 $2 $3",
+    inline: "/bin/bash -i /home/vagrant/rest/always.sh $1 $2 $3",
     privileged: false,
     run: "always",
     args: [
