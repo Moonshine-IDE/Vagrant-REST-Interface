@@ -1,0 +1,8 @@
+---
+# Use thiss file to override rest-interface configuration
+restinterface:
+    capabilities:
+        - domino-api
+        - domino-server
+        - nsfconverter
+        - other

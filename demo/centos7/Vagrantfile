@@ -7,7 +7,7 @@ HTTP_HOST_PORT=8095
 HTTP_GUEST_PORT=8080
 
 APP_HOME_DIR="/opt/rest-interface"
-EXTERNAL_CONFIG_FILE="${APP_HOME_DIR}/config/application.yml"
+EXTERNAL_CONFIG_FILE="#{APP_HOME_DIR}/config/application.yml"
 Vagrant.configure(2) do |config|
 
   config.vm.box = "centos/7"

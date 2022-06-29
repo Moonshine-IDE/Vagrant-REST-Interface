@@ -21,11 +21,11 @@ jobs:
       - name: Create Centos 7 zip
         uses: montudor/action-zip@v1
         with:
-          args: zip -j VagrantCRUD_centos7.zip src/rest-interface-${{ env.interface_version }}.jar src/centos7/always.sh src/centos7/provision.sh
+          args: zip -j VagrantCRUD_centos7.zip src/rest-interface-${{ env.interface_version }}.jar src/centos7/always.sh src/centos7/provision.sh src/resources/application.yml
       - name: Create Ubuntu zip
         uses: montudor/action-zip@v1
         with:
-          args: zip -j VagrantCRUD_ubuntu.zip src/rest-interface-${{ env.interface_version }}.jar src/ubuntu/always.sh src/ubuntu/provision.sh
+          args: zip -j VagrantCRUD_ubuntu.zip src/rest-interface-${{ env.interface_version }}.jar src/ubuntu/always.sh src/ubuntu/provision.sh src/resources/application.yml
       - name: Release
         uses: actions/create-release@v1
         id: create_release

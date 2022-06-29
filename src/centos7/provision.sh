@@ -18,9 +18,13 @@ else
 fi
 
 sudo mkdir -p $APP_HOME_DIR/bin
-sudo mkdir -p $APP_HOME_DIR/log
+sudo mkdir $APP_HOME_DIR/log
+sudo mkdir $APP_HOME_DIR/config
 sudo touch $APP_HOME_DIR/log/output.log
 
 sudo mv /home/vagrant/rest/$ARTIFACT_NAME $APP_HOME_DIR/bin/
+
+# Add file for externalized configuration
+sudo mv /home/vagrant/rest/application.yml $APP_HOME_DIR/config/
 
 sudo chown -R vagrant:vagrant $APP_HOME_DIR
