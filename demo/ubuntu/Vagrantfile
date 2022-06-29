@@ -7,6 +7,7 @@ HTTP_HOST_PORT=8095
 HTTP_GUEST_PORT=8080
 
 APP_HOME_DIR="/opt/rest-interface"
+EXTERNAL_CONFIG_FILE="${APP_HOME_DIR}/config/application.yml"
 Vagrant.configure(2) do |config|
 
   config.vm.box = "ubuntu/bionic64"
@@ -40,13 +41,14 @@ Vagrant.configure(2) do |config|
     ]
 
   config.vm.provision "shell",
-    inline: "/bin/bash /home/vagrant/rest/always.sh $1 $2 $3",
+    inline: "/bin/bash /home/vagrant/rest/always.sh $1 $2 $3 $4",
     privileged: false,
     run: "always",
     args: [
       HTTP_GUEST_PORT,
       APP_HOME_DIR,
-      HTTP_HOST_PORT
+      HTTP_HOST_PORT,
+      EXTERNAL_CONFIG_FILE
     ]
 
 end
