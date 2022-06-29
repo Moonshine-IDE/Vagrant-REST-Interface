@@ -3,19 +3,24 @@
 ARTIFACT_NAME="rest-interface.jar"
 APP_HOME_DIR=$1
 
-yum clean all
-yum update
-yum -y -q install net-tools
-rm -rf /var/cache/yum/*
+sudo yum -y -q install net-tools
 
-printf "\n\nInstalling Java...\n"
-yum -y -q install java-1.8.0-openjdk-devel
+# Check if java is installed and added to Path
+which java > /dev/null 2>&1;
+COMMAND_RESULT=$?
 
-printf "\n\nJava has been installed"
+if [ -n "$JAVA_HOME" ] || [ $COMMAND_RESULT -eq 0 ];then
+   printf "\nJava already installed\n"
+else
+    printf "\nInstalling Java...\n"
+    sudo yum -y -q install java-1.8.0-openjdk-devel
+    printf "\nJava has been installed\n"
+fi
 
-mkdir -p $APP_HOME_DIR/bin
-mkdir -p $APP_HOME_DIR/log
-touch $APP_HOME_DIR/log/output.log
-mv /home/vagrant/rest/$ARTIFACT_NAME $APP_HOME_DIR/bin/
+sudo mkdir -p $APP_HOME_DIR/bin
+sudo mkdir -p $APP_HOME_DIR/log
+sudo touch $APP_HOME_DIR/log/output.log
 
-chown -R vagrant:vagrant $APP_HOME_DIR
+sudo mv /home/vagrant/rest/$ARTIFACT_NAME $APP_HOME_DIR/bin/
+
+sudo chown -R vagrant:vagrant $APP_HOME_DIR

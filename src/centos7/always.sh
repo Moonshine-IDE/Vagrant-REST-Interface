@@ -8,7 +8,7 @@ EXTERNAL_CONFIG_FILE=$4
 
 check=$(netstat -an | grep $HTTP_GUEST_PORT | wc -l)
 if [[ $check -ne 0 ]];then
-	echo "rest-interface is running, stopping..."
+	printf "\nrest-interface is running, stopping..."
 	pkill -9 -f $ARTIFACT_NAME
 fi
 
@@ -19,4 +19,4 @@ java -Xmx1024m -Dgrails.env=prod -Dlogging.level.root=ERROR -Dserver.port=$HTTP_
      -Dspring.config.location=classpath:application.yml,optional:file:$EXTERNAL_CONFIG_FILE \
      -jar bin/$ARTIFACT_NAME > log/output.log 2>&1 &
 
-printf "\n\nrest-interface is starting at 127.0.0.1:$HTTP_HOST_PORT, it takes about 20 seconds to become ready, please wait..."
+printf "\nrest-interface is starting at 127.0.0.1:$HTTP_HOST_PORT, it takes about 20 seconds to become ready..."

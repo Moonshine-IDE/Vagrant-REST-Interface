@@ -1,3 +1,2 @@
-* Upgrade rest-interface version to 0.1.1
-* New demo: Add Vagrantfile for Ubuntu VM
+* Update vagrant scripts. Install Java only if it's not found in the system.
 * Other minor updates
