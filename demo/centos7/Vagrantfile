@@ -40,7 +40,7 @@ Vagrant.configure(2) do |config|
     # These libraries could be moved or removed by the user if they were already covered
     yum install -y wget
     yum install -y unzip
-    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.4/VagrantCRUD_centos7.zip
+    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.5/VagrantCRUD_centos7.zip
 
     unzip -d rest VagrantCRUD_centos7.zip
     mv rest/rest-interface-*.jar rest/rest-interface.jar
