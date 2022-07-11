@@ -26,7 +26,7 @@ Vagrant.configure(2) do |config|
     # These libraries could be moved or removed by the user if they were already covered
     apt-get install -y wget
     apt-get install -y unzip
-    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.5/VagrantCRUD_ubuntu.zip
+    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.6/VagrantCRUD_ubuntu.zip
 
     unzip -d rest VagrantCRUD_ubuntu.zip
     mv rest/rest-interface-*.jar rest/rest-interface.jar
