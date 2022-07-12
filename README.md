@@ -15,12 +15,13 @@ Update your Vagrantfile as follows
 2. Set the `HTTP_GUEST_PORT` variable with the port that the rest-interface will use (reserve) in the virtual machine.
 3. Add the variable `APP_HOME_DIR`, this will indicate the directory where the rest-interface files (binaries and logs) will live within the VM.
 
-At the end, your Vagrantfile (Centos 7) should look like this
+At the end, your Vagrantfile (Centos 7) should look like this:
 ```
 HTTP_HOST_PORT=8095
 HTTP_GUEST_PORT=8080
-
 APP_HOME_DIR="/opt/rest-interface"
+EXTERNAL_CONFIG_FILE="#{APP_HOME_DIR}/config/application.yml"
+
 Vagrant.configure(2) do |config|
 
   config.vm.box = "centos/7"
@@ -34,29 +35,32 @@ Vagrant.configure(2) do |config|
     # These libraries could be moved or removed by the user if they were already covered
     yum install -y wget
     yum install -y unzip
-    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.2/VagrantCRUD_centos7.zip
-
+    wget https://github.com/Moonshine-IDE/Vagrant-REST-Interface/releases/download/0.1.6/VagrantCRUD_centos7.zip
     unzip -d rest VagrantCRUD_centos7.zip
     mv rest/rest-interface-*.jar rest/rest-interface.jar
     chmod +x -R rest/
   SHELL
 
   config.vm.provision "shell",
-    inline: "/bin/sh /home/vagrant/rest/provision.sh $1",
-    privileged: true,
+    inline: "/bin/bash /home/vagrant/rest/provision.sh $1",
+    privileged: false,
     args: [
       APP_HOME_DIR
     ]
 
   config.vm.provision "shell",
-    inline: "/bin/sh /home/vagrant/rest/always.sh $1 $2 $3",
+    inline: "/bin/bash /home/vagrant/rest/always.sh $1 $2 $3 $4",
     privileged: false,
     run: "always",
     args: [
       HTTP_GUEST_PORT,
       APP_HOME_DIR,
-      HTTP_HOST_PORT
+      HTTP_HOST_PORT,
+      EXTERNAL_CONFIG_FILE
     ]
+    
+  
+end
 
 ```
 ## Running the demos
